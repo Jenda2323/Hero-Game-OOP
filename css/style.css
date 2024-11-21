@@ -1,0 +1,85 @@
+@font-face {
+  font-family: "Pixel";
+  src: url("../fonts/Pixel.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Rpg";
+  src: url("../fonts/rpg.otf") format("truetype");
+}
+body {
+  text-align: center;
+  background-color: #f3f3f3;
+  color: #333;
+  font-family: rpg;
+  font-size: 2rem;
+  background-color: rgba(241, 211, 161, 0.8);
+}
+h1 {
+  font-size: 5rem;
+  border: 5px solid black;
+  padding: 2rem;
+  border-radius: 2rem;
+  background-color: cadetblue;
+}
+
+.game {
+  margin: 20px auto;
+  padding: 10px;
+  max-width: 400px;
+  border: 3px solid #000;
+  border-radius: 10px;
+  background-color: #ddd9d4;
+}
+
+.damageToEnemy {
+  color: red;
+}
+.damageToHero {
+  color: red;
+}
+.hero-info,
+.enemy-info {
+  font-size: 1.2rem;
+  font-style: italic;
+  font-family: rpg;
+}
+
+/* BUTTONS */
+button {
+  cursor: pointer;
+  font-family: rpg;
+  font-size: 2rem;
+  border-radius: 10px;
+  padding: 10px;
+}
+button:hover {
+  background-color: lightgreen;
+  transform: scale(1.1);
+  transition: transform 0.8s ease;
+}
+button:disabled {
+  background-color: silver;
+  cursor: not-allowed;
+  font-family: rpg;
+  transform: scale(1);
+}
+button:disabled:hover {
+  background-color: lightcoral;
+}
+
+.attack-btn {
+  padding: 20px;
+  cursor: grabbing;
+  font-family: rpg;
+  transform: scale(1.2);
+  transition: transform 1s ease-in-out;
+}
+#restart-game-btn {
+  margin: auto;
+  display: block;
+}
+#restart-game-btn:hover {
+  transform: scale(1.1);
+  transition: transform 1s ease-in-out;
+}

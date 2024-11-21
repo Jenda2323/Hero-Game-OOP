@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hero Game</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="game-container">
+      <h1>Hero Game</h1>
+
+      <!-- MENU -->
+      <div class="hero-selection">
+        <h2>Vyber si hrdinu</h2>
+        <button class="hero" data-hero="warrior">Válečník</button>
+        <button class="hero" data-hero="mage">Mág</button>
+        <button class="hero" data-hero="archer">Lučištník</button>
+        <p>Vybráno: <span id="selected-hero"></span></p>
+        <button id="start-game-btn" disabled>pokračuj</button>
+      </div>
+      <!-- MENU -->
+
+      <!-- UVOD -->
+      <div class="start" style="display: none">
+        <h2>1.Act</h2>
+        <p>
+          Vítej, hrdino! Temné časy přišly na tento svět. Království, které
+          kdysi vzkvétalo, je nyní zasaženo zlem. Po celém území se šíří hrozby
+          v podobě zákeřných monster a nebezpečných stvůr. Dávné tajemství,
+          které čeká na svého odvážného nositele, nyní vychází najevo. Kdo bude
+          tím, kdo se postaví proti těmto silám a zastaví zkázu? Tvé rozhodnutí
+          o hrdinovi právě začíná...
+        </p>
+        <button id="start-btn-1">pokračuj</button>
+      </div>
+      <!-- UVOD -->
+
+      <!-- enemy choose -->
+      <div class="enemy-selection" style="display: none">
+        <p>
+          Po chvíli cestování narazíš na opuštěnou vesnici. Zdi domů jsou
+          zřícené, cestičky jsou pokryté mechem a ve vzduchu se vznáší zápach
+          zkaženého masa. Něco není v pořádku. Jak procházíš zničenými ulicemi,
+          začneš slyšet kroky. Blíží se někdo, nebo něco... Náhle se před tebou
+          objeví stín. Za rohem se zjeví Kostlivec, s prastarým mečem v ruce,
+          jeho lebka se třese v temném větru. Jeho oči prázdné a zlověstné,
+          zjevně hledá další oběť. Můžeš však i narazit na Skřeta, jehož špinavý
+          meč a těžké brnění vypadají nebezpečně. Není to nic, co by tě
+          zastavilo, ale máš před sebou tvrdý boj. Volba je tvoje. Tvé
+          dovednosti rozhodnou, kdo přežije tento střet. Zvol, jak se postavíš
+          těmto hrozbám!
+        </p>
+        <button class="enemy" data-enemy="goblin">Skřet</button>
+        <button class="enemy" data-enemy="skeleton">Kostlivec</button>
+        <p>Vybráno: <span id="selected-enemy"></span></p>
+        <button id="choose-enemy-btn" disabled>pokračuj</button>
+      </div>
+      <!-- enemy choose -->
+
+      <!-- BOJ -->
+      <div class="fight" style="display: none">
+        <p id="selected-hero"></p>
+        <p class="hero-hp"></p>
+        <p class="damageToHero"></p>
+        <p class="hero-info"></p>
+        <button class="attack-btn">Útoč</button>
+        <p id="selected-enemy"></p>
+        <p class="enemy-hp"></p>
+        <p class="damageToEnemy"></p>
+        <p class="enemy-info"></p>
+        <button id="restart-game-btn" style="display: none">
+          Restartovat hru
+        </button>
+      </div>
+      <!-- BOJ -->
+    </div>
+    <script type="module" src="./scripts/main.js"></script>
+  </body>
+</html>
