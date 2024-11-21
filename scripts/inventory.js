@@ -1,7 +1,7 @@
 export class Inventory {
   constructor() {
-    this.weapon = null; // Aktuálně vybavená zbraň
-    this.armor = null; // Aktuálně vybavené brnění
+    this.weapon = null; 
+    this.armor = null; 
   }
 
   // Vybavení předmětu

@@ -135,13 +135,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   closeModal.addEventListener("click", () => {
-    console.log("Zavření modálního okna!"); // Debug
     infoModal.style.display = "none";
   });
 
   window.addEventListener("click", (event) => {
     if (event.target === infoModal) {
-      console.log("Zavření modálního okna (kliknutí mimo)!"); // Debug
       infoModal.style.display = "none";
     }
   });

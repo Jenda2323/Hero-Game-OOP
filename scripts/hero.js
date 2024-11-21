@@ -2,6 +2,7 @@ export class Hero {
   constructor(name, health, attack, defense, weapon, armor) {
     this.name = name;
     this.health = health;
+    this.maxHealth = health;
     this.baseAttack = attack;
     this.baseDefense = defense;
 
@@ -27,7 +28,10 @@ export class Hero {
       (this.inventory.armor ? this.inventory.armor.defenseBonus : 0)
     );
   }
-
+  heal(amount) {
+   this.health = Math.min(this.health + amount, this.maxHealth); 
+   return this.health;
+ }
   // Změna vybavení
   equipItem(item) {
     if (item.type === "weapon") {
@@ -40,13 +44,9 @@ export class Hero {
   // Zobrazení inventáře
   showInventory() {
     return `
-      Zbraň: ${
-        this.inventory.weapon ? this.inventory.weapon.name : "Žádná"
-      } 
+      Zbraň: ${this.inventory.weapon ? this.inventory.weapon.name : "Žádná"} 
     <br>
-      Brnění: ${
-        this.inventory.armor ? this.inventory.armor.name : "Žádné"
-      } 
+      Brnění: ${this.inventory.armor ? this.inventory.armor.name : "Žádné"} 
     
     `;
   }
