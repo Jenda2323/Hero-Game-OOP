@@ -2,22 +2,52 @@ export class Hero {
   constructor(name, health, attack, defense, weapon, armor) {
     this.name = name;
     this.health = health;
-    this.attack = attack;
-    this.defense = defense;
-    this.weapon = weapon;
-    this.armor = armor;
+    this.baseAttack = attack;
+    this.baseDefense = defense;
+
+    // Přímo nastavení vybavení
+    this.inventory = {
+      weapon: weapon,
+      armor: armor,
+    };
   }
 
-  attackEnemy(enemy) {
-    const damage = Math.max(
-      Math.floor(Math.random() * this.attack) + 1 - enemy.defense,
-      0
+  // Dynamické získání útoku
+  get attack() {
+    return (
+      this.baseAttack +
+      (this.inventory.weapon ? this.inventory.weapon.attackBonus : 0)
     );
-    enemy.health -= damage;
-    return damage;
   }
 
-  isAlive() {
-    return this.health > 0;
+  // Dynamické získání obrany
+  get defense() {
+    return (
+      this.baseDefense +
+      (this.inventory.armor ? this.inventory.armor.defenseBonus : 0)
+    );
+  }
+
+  // Změna vybavení
+  equipItem(item) {
+    if (item.type === "weapon") {
+      this.inventory.weapon = item;
+    } else if (item.type === "armor") {
+      this.inventory.armor = item;
+    }
+  }
+
+  // Zobrazení inventáře
+  showInventory() {
+    return `
+      Zbraň: ${
+        this.inventory.weapon ? this.inventory.weapon.name : "Žádná"
+      } 
+    <br>
+      Brnění: ${
+        this.inventory.armor ? this.inventory.armor.name : "Žádné"
+      } 
+    
+    `;
   }
 }

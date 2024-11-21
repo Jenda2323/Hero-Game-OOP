@@ -4,11 +4,25 @@ export const heroes = {
   warrior: new Hero(
     "Válečník",
     35,
-    7,
-    4,
-    "Krátký zrezlý meč",
-    "Nekvalitní střední brnění"
+    1,
+    1,
+    { name: "Krátký zrezlý meč (+4)", type: "weapon", attackBonus: 4 },
+    { name: "Nekvalitní střední brnění (+4)", type: "armor", defenseBonus: 4 }
   ),
-  mage: new Hero("Mág", 25, 12, 1, "Hůl", "Novicův plášť"),
-  archer: new Hero("Lučištník", 30, 9, 2, "Krátký luk", "Kožená zbroj"),
+  mage: new Hero(
+    "Mág",
+    25,
+    1,
+    1,
+    { name: "Hůl (+10)", type: "weapon", attackBonus: 10},
+    { name: "Novicův plášť (0)", type: "armor", defenseBonus: 0 }
+  ),
+  archer: new Hero(
+    "Lučištník",
+    30,
+    1,
+    1,
+    { name: "Krátký luk (+6)", type: "weapon", attackBonus: 6 },
+    { name: "Kožená zbroj (+2)", type: "armor", defenseBonus: 2 }
+  ),
 };

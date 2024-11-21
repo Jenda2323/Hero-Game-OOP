@@ -7,23 +7,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Výběr hrdiny
   document.querySelectorAll(".hero").forEach((button) => {
-    button.addEventListener("click", (event) => {
+    button.addEventListener("click", () => {
       const heroName = button.getAttribute("data-hero");
       game.selectHero(heroName);
-      document.getElementById(
-        "selected-hero"
-      ).innerHTML = `${game.hero.name}<br>Zdraví: ${game.hero.health} HP | ${game.hero.weapon} (1-${game.hero.attack} dmg) | ${game.hero.armor} (${game.hero.defense} def)`;
+
+      // Získání vybavení
+      const equippedItems = game.hero.inventory;
+
+      // Zobrazení informací o hrdinovi
+      document.getElementById("selected-hero").innerHTML = `
+      <strong>${game.hero.name}</strong><br>
+      Zdraví: ${game.hero.health} HP<br>
+      Útok: ${game.hero.attack}<br>
+      Obrana: ${game.hero.defense}<br><br>
+      <strong>Vybavení:</strong><br>
+      Zbraň: ${equippedItems.weapon ? equippedItems.weapon.name : "Žádná"}<br>
+      Brnění: ${equippedItems.armor ? equippedItems.armor.name : "Žádné"}
+    `;
       document.getElementById("start-game-btn").disabled = false;
     });
   });
 
   // Začátek hry
   document.getElementById("start-game-btn").addEventListener("click", () => {
+    console.log("Hra začíná!"); // Debug
     document.querySelector(".hero-selection").style.display = "none";
     document.querySelector(".start").style.display = "block";
   });
 
   document.getElementById("start-btn-1").addEventListener("click", () => {
+    console.log("Začíná první úroveň!"); // Debug
     document.querySelector(".start").style.display = "none";
     document.querySelector(".enemy-selection").style.display = "block";
   });
@@ -32,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".enemy").forEach((button) => {
     button.addEventListener("click", (event) => {
       const enemyName = button.getAttribute("data-enemy");
+      console.log(`Vybrán nepřítel: ${enemyName}`); // Debug
       game.selectEnemy(enemyName);
       document.getElementById(
         "selected-enemy"
@@ -42,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Přechod na boj
   document.getElementById("choose-enemy-btn").addEventListener("click", () => {
+    console.log("Začíná boj!"); // Debug
     document.querySelector(".enemy-selection").style.display = "none";
     document.querySelector(".fight").style.display = "block";
     game.resetCombatMessages();
@@ -56,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Bojová logika
   document.querySelector(".attack-btn").addEventListener("click", () => {
+    console.log("Útok proveden!"); // Debug
     const result = game.battleRound();
 
     // Aktualizace zranění a stavů
@@ -91,6 +107,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Restart hry
   document.getElementById("restart-game-btn").addEventListener("click", () => {
+    console.log("Restart hry!"); // Debug
     location.reload();
+  });
+
+  // Tlačítko pro informace
+  const infoButton = document.getElementById("info-btn");
+  const infoModal = document.getElementById("info-modal");
+  const closeModal = document.getElementById("close-info-modal");
+  const characterInfo = document.getElementById("character-info");
+
+  infoButton.addEventListener("click", () => {
+    if (game.hero) {
+      const inventory = game.hero.showInventory();
+
+      characterInfo.innerHTML = `
+      <strong>${game.hero.name}</strong><br>
+      Zdraví: ${game.hero.health} HP<br>
+      Útok: ${game.hero.attack}<br>
+      Obrana: ${game.hero.defense}<br><br>
+      <strong>Vybavení:</strong><br>${inventory}
+    `;
+    } else {
+      characterInfo.textContent = "Není vybrán žádný hrdina.";
+    }
+    infoModal.style.display = "flex";
+  });
+
+  closeModal.addEventListener("click", () => {
+    console.log("Zavření modálního okna!"); // Debug
+    infoModal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === infoModal) {
+      console.log("Zavření modálního okna (kliknutí mimo)!"); // Debug
+      infoModal.style.display = "none";
+    }
   });
 });
