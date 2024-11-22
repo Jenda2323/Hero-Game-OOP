@@ -5,140 +5,114 @@ import { Game } from "./game.js";
 document.addEventListener("DOMContentLoaded", () => {
   const game = new Game(heroes, enemies);
 
+  // Přepínání sekcí
+  const showSection = (sectionClass) => {
+    document.querySelectorAll(".game-section").forEach((section) => {
+      section.style.display = "none";
+    });
+
+    const targetSection = document.querySelector(`.${sectionClass}`);
+    if (targetSection) {
+      targetSection.style.display = "block";
+    } else {
+      console.error(`Sekce "${sectionClass}" nebyla nalezena.`);
+    }
+  };
+
   // Výběr hrdiny
   document.querySelectorAll(".hero").forEach((button) => {
     button.addEventListener("click", () => {
       const heroName = button.getAttribute("data-hero");
       game.selectHero(heroName);
 
-      // Získání vybavení
-      const equippedItems = game.hero.inventory;
-
-      // Zobrazení informací o hrdinovi
       document.getElementById("selected-hero").innerHTML = `
-      <strong>${game.hero.name}</strong><br>
-      Zdraví: ${game.hero.health} HP<br>
-      Útok: ${game.hero.attack}<br>
-      Obrana: ${game.hero.defense}<br><br>
-      <strong>Vybavení:</strong><br>
-      Zbraň: ${equippedItems.weapon ? equippedItems.weapon.name : "Žádná"}<br>
-      Brnění: ${equippedItems.armor ? equippedItems.armor.name : "Žádné"}
-    `;
+        <strong>${game.hero.name}</strong><br>
+        Zdraví: ${game.hero.health} HP<br>
+        Útok: ${game.hero.attack}<br>
+        Obrana: ${game.hero.defense}<br>
+        <strong>Inventář:</strong><br>
+        ${game.hero.showInventory()}
+      `;
       document.getElementById("start-game-btn").disabled = false;
     });
   });
 
-  // Začátek hry
+  // Přechod na příběh
   document.getElementById("start-game-btn").addEventListener("click", () => {
-    console.log("Hra začíná!"); // Debug
-    document.querySelector(".hero-selection").style.display = "none";
-    document.querySelector(".start").style.display = "block";
+    game.resetCombatMessages();
+    showSection("start");
   });
 
+  // Pokračování na výběr nepřítele
   document.getElementById("start-btn-1").addEventListener("click", () => {
-    console.log("Začíná první úroveň!"); // Debug
-    document.querySelector(".start").style.display = "none";
-    document.querySelector(".enemy-selection").style.display = "block";
+    showSection("enemy-selection");
   });
 
   // Výběr nepřítele
   document.querySelectorAll(".enemy").forEach((button) => {
-    button.addEventListener("click", (event) => {
+    button.addEventListener("click", () => {
       const enemyName = button.getAttribute("data-enemy");
-      console.log(`Vybrán nepřítel: ${enemyName}`); // Debug
       game.selectEnemy(enemyName);
-      document.getElementById(
-        "selected-enemy"
-      ).innerHTML = `${game.enemy.name}<br>Zdraví: ${game.enemy.health} HP | ${game.enemy.weapon} (1-${game.enemy.attack} dmg) | ${game.enemy.armor} (${game.enemy.defense} def)`;
+
+      document.getElementById("selected-enemy").innerHTML = `
+        <strong>${game.enemy.name}</strong><br>
+        Zdraví: ${game.enemy.health} HP<br>
+        Zbraň: ${game.enemy.weapon} | ${game.enemy.attack} Útok<br>
+        Brnění: ${game.enemy.armor} | ${game.enemy.defense} Def
+      `;
       document.getElementById("choose-enemy-btn").disabled = false;
     });
   });
 
   // Přechod na boj
   document.getElementById("choose-enemy-btn").addEventListener("click", () => {
-    console.log("Začíná boj!"); // Debug
-    document.querySelector(".enemy-selection").style.display = "none";
-    document.querySelector(".fight").style.display = "block";
     game.resetCombatMessages();
+    showSection("fight");
 
-    document.querySelector(
-      ".hero-hp"
-    ).textContent = `Hrdina má: ${game.hero.health} HP`;
-    document.querySelector(
-      ".enemy-hp"
-    ).textContent = `${game.enemy.name} má: ${game.enemy.health} HP`;
+    document.querySelector(".attack-btn").onclick = () => {
+      game.handleBattleRound(
+        () => {
+          alert("Nepřítel poražen! Pokračujte v příběhu.");
+          showSection("next-section");
+        },
+        () => {
+          alert("Hrdina byl poražen. Konec hry!");
+        }
+      );
+    };
   });
 
-  // Bojová logika
-  document.querySelector(".attack-btn").addEventListener("click", () => {
-    console.log("Útok proveden!"); // Debug
-    const result = game.battleRound();
-
-    // Aktualizace zranění a stavů
-    document.querySelector(
-      ".damageToEnemy"
-    ).textContent = `${game.enemy.name} je zraněn o ${result.realDamageToEnemy} HP`;
-    document.querySelector(
-      ".damageToHero"
-    ).textContent = `Hrdina je zraněn o ${result.realDamageToHero} HP`;
-
-    document.querySelector(
-      ".enemy-info"
-    ).textContent = `Způsobené škody: ${result.heroRawDamage} - ${game.enemy.defense} obrana = ${result.realDamageToEnemy}`;
-    document.querySelector(
-      ".hero-info"
-    ).textContent = `Způsobené škody: ${result.enemyRawDamage} - ${game.hero.defense} obrana = ${result.realDamageToHero}`;
-
-    // Aktualizace zdraví
-    document.querySelector(
-      ".hero-hp"
-    ).textContent = `Hrdina má: ${result.heroHealth} HP`;
-    document.querySelector(
-      ".enemy-hp"
-    ).textContent = `${game.enemy.name} má: ${result.enemyHealth} HP`;
-
-    // Kontrola konce hry
-    if (game.isGameOver()) {
-      alert(game.isGameOver());
-      document.querySelector(".attack-btn").disabled = true;
-      document.getElementById("restart-game-btn").style.display = "block";
-    }
-  });
-
-  // Restart hry
+  // Tlačítko restart hry
   document.getElementById("restart-game-btn").addEventListener("click", () => {
-    console.log("Restart hry!"); // Debug
     location.reload();
   });
 
-  // Tlačítko pro informace
-  const infoButton = document.getElementById("info-btn");
-  const infoModal = document.getElementById("info-modal");
-  const closeModal = document.getElementById("close-info-modal");
-  const characterInfo = document.getElementById("character-info");
-
-  infoButton.addEventListener("click", () => {
+  //Inventář
+  document.getElementById("info-btn").addEventListener("click", () => {
+    const characterInfo = document.getElementById("character-info");
     if (game.hero) {
-      const inventory = game.hero.showInventory();
-
       characterInfo.innerHTML = `
       <strong>${game.hero.name}</strong><br>
-      Zdraví: ${game.hero.health} HP<br>
+      Zdraví: ${game.hero.health}/${game.hero.maxHealth} HP<br>
       Útok: ${game.hero.attack}<br>
       Obrana: ${game.hero.defense}<br><br>
-      <strong>Vybavení:</strong><br>${inventory}
+      <strong>Inventář:</strong><br>${game.hero.showInventory()}
     `;
     } else {
       characterInfo.textContent = "Není vybrán žádný hrdina.";
     }
-    infoModal.style.display = "flex";
+    // Zobrazení modálního okna
+    document.getElementById("info-modal").style.display = "flex";
   });
 
-  closeModal.addEventListener("click", () => {
-    infoModal.style.display = "none";
+  // Zavření modálního okna
+  document.getElementById("close-info-modal").addEventListener("click", () => {
+    document.getElementById("info-modal").style.display = "none";
   });
 
+  // Zajištění, aby kliknutí mimo modal zavřelo modal
   window.addEventListener("click", (event) => {
+    const infoModal = document.getElementById("info-modal");
     if (event.target === infoModal) {
       infoModal.style.display = "none";
     }
