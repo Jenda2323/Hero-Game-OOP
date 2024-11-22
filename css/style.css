@@ -20,7 +20,11 @@ h1 {
   border: 5px solid black;
   padding: 2rem;
   border-radius: 2rem;
-  background-color: cadetblue;
+  background-image: url("../pictures/Banner.jpg");
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center;
+  color: transparent;
 }
 
 .game {
