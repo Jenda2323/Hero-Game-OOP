@@ -79,17 +79,20 @@ export class Game {
 
     const gameOverMessage = this.isGameOver();
     if (gameOverMessage) {
-      alert(gameOverMessage);
+      // Zpoždění  alertu
+      setTimeout(() => {
+        alert(gameOverMessage);
 
-      if (this.hero.health <= 0) {
-        // Hrdina prohrál
-        document.getElementById("restart-game-btn").style.display = "block";
-        onDefeat();
-      } else if (this.enemy.health <= 0) {
-        // Hrdina vyhrál
-        document.getElementById("restart-game-btn").style.display = "none";
-        onVictory();
-      }
+        if (this.hero.health <= 0) {
+          // Hrdina prohrál objeví se restart button
+          document.getElementById("restart-game-btn").style.display = "block";
+          onDefeat();
+        } else if (this.enemy.health <= 0) {
+          // Hrdina vyhrál
+          document.getElementById("restart-game-btn").style.display = "none";
+          onVictory();
+        }
+      }, 100); // zpoždění
     }
   }
 }
