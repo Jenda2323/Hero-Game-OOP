@@ -1,10 +1,13 @@
 import { heroes } from "./heroes.js";
 import { enemies } from "./bestiary.js";
 import { Game } from "./game.js";
+import { initializeInventoryModal } from "./inventoryModal.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const game = new Game(heroes, enemies);
 
+  // Inicializace inventáře (modální okno)
+  initializeInventoryModal(game);
   // Přepínání sekcí
   const showSection = (sectionClass) => {
     document.querySelectorAll(".game-section").forEach((section) => {
@@ -29,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <strong>${game.hero.name}</strong><br>
         Zdraví: ${game.hero.health} HP<br>
         Útok: ${game.hero.attack}<br>
-        Obrana: ${game.hero.defense}<br>
+        Obrana: ${game.hero.defense}<br><br>
         <strong>Inventář:</strong><br>
         ${game.hero.showInventory()}
       `;
@@ -81,40 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     };
   });
-
   // Tlačítko restart hry
   document.getElementById("restart-game-btn").addEventListener("click", () => {
     location.reload();
   });
 
-  //Inventář
-  document.getElementById("info-btn").addEventListener("click", () => {
-    const characterInfo = document.getElementById("character-info");
-    if (game.hero) {
-      characterInfo.innerHTML = `
-      <strong>${game.hero.name}</strong><br>
-      Zdraví: ${game.hero.health}/${game.hero.maxHealth} HP<br>
-      Útok: ${game.hero.attack}<br>
-      Obrana: ${game.hero.defense}<br><br>
-      <strong>Inventář:</strong><br>${game.hero.showInventory()}
-    `;
-    } else {
-      characterInfo.textContent = "Není vybrán žádný hrdina.";
-    }
-    // Zobrazení modálního okna
-    document.getElementById("info-modal").style.display = "flex";
-  });
-
-  // Zavření modálního okna
-  document.getElementById("close-info-modal").addEventListener("click", () => {
-    document.getElementById("info-modal").style.display = "none";
-  });
-
-  // Zajištění, aby kliknutí mimo modal zavřelo modal
-  window.addEventListener("click", (event) => {
-    const infoModal = document.getElementById("info-modal");
-    if (event.target === infoModal) {
-      infoModal.style.display = "none";
-    }
-  });
+  ///-------------------------------------------------------------------------///
 });

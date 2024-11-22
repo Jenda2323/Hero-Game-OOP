@@ -14,7 +14,7 @@ export const heroes = {
     25,
     1,
     1,
-    { name: "Hůl (+10)", type: "weapon", attackBonus: 10},
+    { name: "Hůl ohně (+10)", type: "weapon", attackBonus: 10},
     { name: "Novicův plášť (0)", type: "armor", defenseBonus: 0 }
   ),
   archer: new Hero(
