@@ -22,7 +22,7 @@ export const heroes = {
     30,
     1,
     1,
-    { name: "Krátký luk (+6)", type: "weapon", attackBonus: 6 },
+    { name: "Krátký luk (+7)", type: "weapon", attackBonus: 7 },
     { name: "Kožená zbroj (+2)", type: "armor", defenseBonus: 2 }
   ),
 };

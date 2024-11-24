@@ -89,5 +89,83 @@ document.addEventListener("DOMContentLoaded", () => {
     location.reload();
   });
 
-  ///-------------------------------------------------------------------------///
+  ///-------------------------------Hádanka----------------------------------------///
+
+  // Odpověď na hádanku
+  // Funkce pro odměnu hrdiny
+  function rewardHero() {
+    const puzzleResult = document.getElementById("puzzle-result");
+
+    if (game.hero.name === "Válečník") {
+      game.hero.addItem({
+        name: "Dlouhý meč (+5)",
+        type: "weapon",
+        attackBonus: 5,
+      });
+      alert("Získáváš Dlouhý meč (+5 útok)!");
+    } else if (game.hero.name === "Lučištník") {
+      game.hero.addItem({
+        name: "Lehký luk (+8)",
+        type: "weapon",
+        attackBonus: 8,
+      });
+      alert("Získáváš Lehký luk (+8 útok)!");
+    } else if (game.hero.name === "Mág") {
+      game.hero.addItem({
+        name: "Magická hůl (+11)",
+        type: "weapon",
+        attackBonus: 11,
+      });
+      alert("Získáváš Magickou hůl (+11 útok)!");
+    } else {
+      alert("Hrdina nemá specifickou odměnu.");
+    }
+
+    puzzleResult.textContent = "Správná odpověď! Truhla se otevírá...";
+    setTimeout(() => game.showSection("reward-section"), 2000);
+  }
+
+  // Funkce pro spuštění boje při špatné odpovědi
+  function startFightWithDarkGhost() {
+    const puzzleResult = document.getElementById("puzzle-result");
+    puzzleResult.textContent = "Špatná odpověď! Uslyšíš děsivé zvuky...";
+    console.log("Nepřítel:", game.enemy);
+    console.log("Sekce:", document.querySelector(".fight").style.display);
+    setTimeout(() => {
+      game.selectEnemy("darkGhost");
+      game.updateCombatUI();
+      game.resetCombatMessages();
+      showSection("fight"); // Zobrazí sekci boje
+
+      // Logika boje
+      document.querySelector(".attack-btn").onclick = () => {
+        game.handleBattleRound(
+          () => {
+            alert("Dark Ghost poražen! Pokračujte v příběhu.");
+            game.showSection("next-section"); // Další část příběhu
+          },
+          () => {
+            alert("Hrdina byl poražen. Konec hry!");
+            document.getElementById("restart-game-btn").style.display = "block"; // Zviditelní restart
+          }
+        );
+      };
+    }, 20);
+  }
+
+  // Nastavení posluchače pro odeslání odpovědi
+  document.getElementById("submit-answer-btn").addEventListener("click", () => {
+    const answer = document.getElementById("puzzle-answer").value.toLowerCase();
+
+    if (answer === "čas" || answer === "time" || answer === "cas") {
+      rewardHero();
+    } else {
+      startFightWithDarkGhost();
+    }
+  });
+
+  // Nastavení posluchače pro pokračování
+  document.getElementById("continue-btn").addEventListener("click", () => {
+    game.showSection("next-section"); // Nahraďte názvem další sekce
+  });
 });

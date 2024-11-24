@@ -29,9 +29,9 @@ export class Hero {
     );
   }
   heal(amount) {
-   this.health = Math.min(this.health + amount, this.maxHealth); 
-   return this.health;
- }
+    this.health = Math.min(this.health + amount, this.maxHealth);
+    return this.health;
+  }
   // Změna vybavení
   equipItem(item) {
     if (item.type === "weapon") {
@@ -40,7 +40,15 @@ export class Hero {
       this.inventory.armor = item;
     }
   }
-
+  addItem(item) {
+    if (item.type === "weapon") {
+      this.inventory.weapon = item; // Pokud je zbraň, nastavíme jako aktuální zbraň
+    } else if (item.type === "armor") {
+      this.inventory.armor = item; // Pokud je brnění, nastavíme jako aktuální brnění
+    } else {
+      console.warn("Předmět není typu weapon nebo armor. Nebyl přidán.");
+    }
+  }
   // Zobrazení inventáře
   showInventory() {
     return `

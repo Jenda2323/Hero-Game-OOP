@@ -90,9 +90,36 @@
     </div>
     <!-- BOJ -->
 
-    <div class="game-section next-section" style="display: none">
-      <p>Pokračovaní příbehu ...</p>
+    <!-- Hádanka -->
+    <div class="game-section next-section" style="display: none;">
+      <p>
+        Po poražení svého protivníka procházíš dále ruinami vesnice. Stíny se
+        protahují, jak slunce zapadá za obzor. Ulice tě vedou ke starému
+        náměstí, kde uprostřed stojí zchátralá studna. Na kamenném okraji leží
+        malá, ale nápadná truhlička pokrytá prachem a pavučinami. Když se
+        přiblížíš, zdá se, že prostor kolem truhly je podivně tichý. Když se
+        podíváš blíže, na kamenech vedle truhly si všimneš vyrytého textu:
+      </p>
+      <blockquote>
+        <strong
+          >"Jdu stále kupředu, ale nikdy se nevrátím zpět. Kdo jsem?"</strong
+        >
+      </blockquote>
+      <input type="text" id="puzzle-answer" placeholder="Zadej odpověď..." />
+      <button id="submit-answer-btn">Odpovědět</button>
+      <div id="puzzle-result"></div>
     </div>
+    <!-- Hádanka -->
+
+    <!-- Odměna -->
+    <div class="game-section reward" style="display: none;">
+      <h4>Truhla se otevřela ...</h4>
+      <p class="reward-chest"></p>
+      <button id="continue-btn">Pokračovat</button>
+    </div>
+ <!-- Odměna -->
+
+
     <script type="module" src="./scripts/main.js"></script>
   </body>
 </html>
