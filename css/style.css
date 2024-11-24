@@ -12,7 +12,7 @@ body {
   background-color: #f3f3f3;
   color: #333;
   font-family: rpg;
-  font-size: 2rem;
+  font-size: 1.8rem;
   background-color: rgba(241, 211, 161, 0.8);
 }
 .banner-container {
@@ -26,20 +26,6 @@ body {
   height: 100%;
   border: 5px solid black;
   border-radius: 2rem;
-}
-
-@media (max-width: 768px) {
-  h1 {
-    font-size: 4rem;
-    padding: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 3rem;
-    padding: 1rem;
-  }
 }
 
 .game {
@@ -68,7 +54,7 @@ body {
 button {
   cursor: pointer;
   font-family: rpg;
-  font-size: 2rem;
+  font-size: 1.7rem;
   border-radius: 10px;
   padding: 10px;
 }
