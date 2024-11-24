@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     game.showSection("enemy-selection");
   });
 
+  //vyber prvniho nepritele
   document.querySelectorAll(".enemy").forEach((button) => {
     button.addEventListener("click", () => {
       const enemyName = button.getAttribute("data-enemy");
@@ -49,17 +50,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  //prvni souboj
   document.getElementById("choose-enemy-btn").addEventListener("click", () => {
     game.showSection("fight");
 
     document.querySelector(".attack-btn").onclick = () => {
       game.handleBattleRound(
-        () => game.showSection("next-section"),
+        () => game.showSection("afterBattle"),
         () => alert("Hrdina byl poražen.")
       );
     };
   });
 
+  //pred hadankou
+  document.getElementById("btn-yes").addEventListener("click", () => {
+    game.showSection("next-section");
+  });
+
+  document.getElementById("btn-no").addEventListener("click", () => {
+    game.showSection("next-section1");
+  });
+
+  //hadanka
   document.getElementById("submit-answer-btn").addEventListener("click", () => {
     const answer = document.getElementById("puzzle-answer").value.toLowerCase();
     const puzzleResult = document.getElementById("puzzle-result");
@@ -74,9 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Nastavení zpoždění před spuštěním souboje
       setTimeout(() => {
         game.selectEnemy("darkGhost");
-        game.showSection("fight");
         game.updateCombatUI();
         game.resetCombatMessages();
+        game.showSection("fight");
 
         document.querySelector(".attack-btn").onclick = () => {
           game.handleBattleRound(

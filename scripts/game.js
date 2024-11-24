@@ -51,10 +51,10 @@ export class Game {
 
   isGameOver() {
     if (this.hero.health <= 0) {
-      return "Nepřítel vyhrál!";
+      return "Nepřítel vyhrál a ty končíš v tomhle dobrodružství";
     }
     if (this.enemy.health <= 0) {
-      return "Hrdina vyhrál!";
+      return "Hrdina vyhrál! Pokračuj v příběhu";
     }
     return false;
   }
