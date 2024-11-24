@@ -15,16 +15,31 @@ body {
   font-size: 2rem;
   background-color: rgba(241, 211, 161, 0.8);
 }
-h1 {
-  font-size: 5rem;
+.banner-container {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.banner-image {
+  width: 85%;
+  height: 100%;
   border: 5px solid black;
-  padding: 2rem;
   border-radius: 2rem;
-  background-image: url("../pictures/Banner.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  color: transparent;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 4rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 3rem;
+    padding: 1rem;
+  }
 }
 
 .game {
@@ -89,6 +104,7 @@ button:disabled:hover {
 }
 #info-btn {
   background-color: #b1afad;
+  margin-top: 1rem;
 }
 
 /* Modální okno */
