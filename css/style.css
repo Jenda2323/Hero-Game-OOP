@@ -21,8 +21,8 @@ h1 {
   padding: 2rem;
   border-radius: 2rem;
   background-image: url("../pictures/Banner.jpg");
-  background-size: cover; 
-  background-repeat: no-repeat; 
+  background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
   color: transparent;
 }
@@ -123,28 +123,30 @@ button:disabled:hover {
   font-size: 1.5rem;
 }
 
-
 input {
   font-size: 2rem;
-  font-family: 'rpg', sans-serif;
+  font-family: "rpg", sans-serif;
   text-align: center;
   padding: 0.5rem;
   border-radius: 10px;
-  border: 3px solid #333; 
-  background-color: #f4f4f4; 
-  color: #222; 
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); 
-  transition: all 0.3s ease; 
+  border: 3px solid #333;
+  background-color: #f4f4f4;
+  color: #222;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
-
 input:hover {
-  border-color: #555; 
-  background-color: #eaeaea; 
-  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); 
+  border-color: #555;
+  background-color: #eaeaea;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
 }
 
 input:focus {
-  outline: none; 
-  border-color: #5abd41; 
+  outline: none;
+  border-color: #5abd41;
+}
+
+#puzzle-result1 {
+  font-style: italic;
 }

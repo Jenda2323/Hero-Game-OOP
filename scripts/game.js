@@ -79,20 +79,81 @@ export class Game {
 
     const gameOverMessage = this.isGameOver();
     if (gameOverMessage) {
-      // Zpoždění  alertu
       setTimeout(() => {
         alert(gameOverMessage);
 
         if (this.hero.health <= 0) {
-          // Hrdina prohrál objeví se restart button
           document.getElementById("restart-game-btn").style.display = "block";
           onDefeat();
         } else if (this.enemy.health <= 0) {
-          // Hrdina vyhrál
           document.getElementById("restart-game-btn").style.display = "none";
           onVictory();
         }
-      }, 100); // zpoždění
+      }, 100);
     }
+  }
+
+  showSection(sectionClass) {
+    document.querySelectorAll(".game-section").forEach((section) => {
+      section.style.display = "none";
+    });
+
+    const targetSection = document.querySelector(`.${sectionClass}`);
+    if (targetSection) {
+      targetSection.style.display = "block";
+    } else {
+      console.error(`Sekce "${sectionClass}" nebyla nalezena.`);
+    }
+  }
+
+  rewardHero() {
+    const puzzleResult = document.getElementById("puzzle-result");
+    const puzzleResult1 = document.getElementById("puzzle-result1");
+    const continueBtn = document.getElementById("continue-btn");
+
+    if (!puzzleResult || !puzzleResult1 || !continueBtn) {
+      console.error("Některé DOM prvky pro odměnu chybí!");
+      return;
+    }
+
+    let rewardMessage = "";
+
+    if (this.hero.name === "Válečník") {
+      this.hero.addItem({
+        name: "Dlouhý meč (+5)",
+        type: "weapon",
+        attackBonus: 5,
+      });
+      rewardMessage = "Získáváš Dlouhý meč (+5 útok)!";
+    } else if (this.hero.name === "Lučištník") {
+      this.hero.addItem({
+        name: "Lehký luk (+8)",
+        type: "weapon",
+        attackBonus: 8,
+      });
+      rewardMessage = "Získáváš Lehký luk (+8 útok)!";
+    } else if (this.hero.name === "Mág") {
+      this.hero.addItem({
+        name: "Magická hůl (+11)",
+        type: "weapon",
+        attackBonus: 11,
+      });
+      rewardMessage = "Získáváš Magickou hůl (+11 útok)!";
+    } else {
+      alert("Hrdina nemá specifickou odměnu.");
+      return;
+    }
+
+    puzzleResult.textContent = "Správná odpověď! Truhla se otevírá...";
+    setTimeout(() => {
+      puzzleResult1.textContent = rewardMessage;
+    }, 4000);
+    setTimeout(() => {
+      continueBtn.style.display = "block";
+    }, 5000);
+
+    continueBtn.addEventListener("click", () => {
+      this.showSection("next-section1");
+    });
   }
 }
