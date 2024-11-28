@@ -150,8 +150,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const continueBtn = document.getElementById("continue-btn2");
       const diceBtn = document.getElementById("dice-btn");
       const diceInfo = document.getElementById("dice-info");
-
+      document.querySelectorAll(".barrier-option").forEach((button) => {
+        button.style.display = "none";
+      });
       if (action === "courage") {
+        
         barrierResult.textContent =
           "Rozhodl ses pro odvahu. Kámen se třese, ale zůstává stát. Dokázal jsi projít.";
         setTimeout(() => {
