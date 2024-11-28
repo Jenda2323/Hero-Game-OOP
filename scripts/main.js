@@ -140,4 +140,81 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 2000);
     });
   });
+
+  //Zkousky
+  // Nastavení událostí pro zátarasu
+  document.querySelectorAll(".barrier-option").forEach((button) => {
+    button.addEventListener("click", () => {
+      const action = button.getAttribute("data-action");
+      const barrierResult = document.getElementById("barrier-result");
+      const continueBtn = document.getElementById("continue-btn2");
+      const diceBtn = document.getElementById("dice-btn");
+      const diceInfo = document.getElementById("dice-info");
+
+      if (action === "courage") {
+        barrierResult.textContent =
+          "Rozhodl ses pro odvahu. Kámen se třese, ale zůstává stát. Dokázal jsi projít.";
+        setTimeout(() => {
+          continueBtn.style.display = "block";
+        }, 3000);
+      } else if (action === "strength") {
+        barrierResult.textContent =
+          "Používáš svou sílu k odstranění části kamene. Klikni na tlačítko pro hod kostkou.";
+        diceBtn.style.display = "block";
+
+        diceBtn.onclick = () => {
+          const diceRoll = Math.floor(Math.random() * 6) + 1; // Hod kostkou
+          if (diceRoll >= 4) {
+            diceInfo.textContent = `Hodil jsi ${diceRoll}! Podařilo se ti prorazit zátarasu bez zranění.`;
+          } else {
+            const damage = 4; // Poškození při neúspěchu
+            game.hero.health -= damage;
+            diceInfo.textContent = `Hodil jsi ${diceRoll}. Podařilo se ti prorazit zátarasu, ale utrpěl jsi ${damage} zranění.`;
+
+            // Kontrola zdraví hrdiny
+            if (game.hero.health <= 0) {
+              setTimeout(() => game.isGameOverStory(), 3000);
+              return;
+            }
+          }
+          // Skrytí tlačítka po hodu
+          diceBtn.style.display = "none";
+
+          // Zobrazení tlačítka pokračování
+          setTimeout(() => {
+            continueBtn.style.display = "block";
+          }, 3000);
+        };
+      } else if (action === "wisdom") {
+        const answer = prompt(
+          "Runy září a hlas ti pokládá otázku: Můžeš mě slyšet, ale nikdy nevidět. Jsem ti blíž, čím víc utíkáš. Co jsem?"
+        ).toLowerCase();
+        if (answer === "vítr" || answer === "vitr" || answer === "wind") {
+          barrierResult.textContent =
+            "Odpověděl jsi správně. Runy zmizely a zátarasa se otevřela.";
+          setTimeout(() => {
+            continueBtn.style.display = "block";
+          }, 3000);
+        } else {
+          barrierResult.innerHTML =
+            "Špatná odpověď! Z run vystřelila přímo proti tobě ohnivá koule a způsobila ti zranění <strong>7 životů</strong>";
+          game.hero.health -= 7;
+          if (game.hero.health <= 0) {
+            setTimeout(() => game.isGameOverStory(), 5000);
+          } else {
+            setTimeout(() => {
+              continueBtn.style.display = "block";
+            }, 3000);
+          }
+        }
+      }
+    });
+  });
+
+  // Tlačítko pokračovat
+  document.getElementById("continue-btn2").addEventListener("click", () => {
+    game.showSection("next-section3"); // Nahraďte dalším oddílem příběhu
+  });
+
+  // Pokračování po zátarase
 });

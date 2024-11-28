@@ -64,6 +64,7 @@ export class Game {
     };
   }
 
+  //kontrola smrti pri boji
   isGameOver() {
     if (this.hero.health <= 0) {
       return "Nepřítel vyhrál a ty končíš v tomhle dobrodružství";
@@ -72,6 +73,13 @@ export class Game {
       return "Hrdina vyhrál! Pokračuj v příběhu";
     }
     return false;
+  }
+
+  //kontrola smrti mimo boj 
+  isGameOverStory() {
+    if (this.hero.health <= 0) {
+      this.showSection("game-over"); 
+    }
   }
 
   handleBattleRound(onVictory, onDefeat) {

@@ -25,7 +25,11 @@
         </div>
       </div>
     </div>
-
+    <div class="game-section game-over" style="display: none">
+      <h2>Dobrodružství končí</h2>
+      <p>Hrdina přišel o všechny své životy a jeho cesta skončila.</p>
+      <button onclick="location.reload()">Restartovat hru</button>
+    </div>
     <!-- MENU -->
     <div class="game-section hero-selection">
       <h2>Vyber si hrdinu</h2>
@@ -130,8 +134,8 @@
       <p>
         Po chvíli cesty narazíš na starého vesničana. Vypadá, že na tebe čekal.
         "Zdravím tě, hrdino," řekne klidným hlasem. "Vidím, že máš za sebou
-        těžké chvíle. Mohu ti pomoci, ale jen s jednou věcí. Vyber si: léčbu tvých zranění nebo radu,
-        která ti pomůže v tvém putování."
+        těžké chvíle. Mohu ti pomoci, ale jen s jednou věcí. Vyber si: léčbu
+        tvých zranění nebo radu, která ti pomůže v tvém putování."
       </p>
       <div id="dialogue">
         <button class="dialogue-option" data-action="heal">
@@ -142,12 +146,38 @@
         </button>
       </div>
       <div id="dialogue-result"></div>
-      <button id="continue-btn1" style="display: none;">Pokračovat</button>
+      <button id="continue-btn1" style="display: none">Pokračovat</button>
     </div>
 
     <!-- dalsi -->
-    <div class="game-section next-section2" style="display: none;">
-      <p>Vycházíš z vesnice </p>
+    <div class="game-section next-section2" style="display: none">
+      <p>
+        Vycházíš z vesnice a pokračuješ rovnou do hustého lesa. Jakmile
+        překročíš hranici lesa, teplota klesne a světlo téměř zmizí. Les dýchá
+        vlastním životem, jako by se jeho stromy a keře neustále hýbaly,
+        přestože kolem nefouká ani vánek. Po několika minutách chůze objevíš
+        starou zarostlou cestu, která tě vede hlouběji. Náhle narazíš na
+        obrovskou kamennou zátarasu. Blokuje celou stezku a pokrývají ji
+        starodávné runy. Když se přiblížíš, runy začnou zářit. Jakmile se
+        přiblížíš, uslyšíš hluboký hlas, který zní jako šepot větru a praskání
+        dřeva:
+      </p>
+      <blockquote>
+        „Kdo jsi, že si troufáš vstoupit na tuto cestu? Dokážeš projít touto
+        překážkou, jen pokud prokážeš svou odvahu, sílu nebo důvtip.“
+      </blockquote>
+      <p>Chceš provést zkoušku:</p>
+      <button class="barrier-option" data-action="courage">Odvahy</button>
+      <button class="barrier-option" data-action="strength">Síly</button>
+      <button class="barrier-option" data-action="wisdom">Důvtipu</button>
+      <p id="barrier-result"></p>
+      <button id="dice-btn" style="display: none">Hod kostkou</button>
+      <p id="dice-info" class="dice"></p>
+      <button id="continue-btn2" style="display: none">Pokračovat</button>
+    </div>
+
+    <div class="game-section next-section3" style="display: none">
+      <p>pokracovani po zkousce</p>
     </div>
     <script type="module" src="./scripts/main.js"></script>
   </body>
