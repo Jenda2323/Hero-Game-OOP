@@ -14,6 +14,21 @@ export class Game {
     this.enemy = this.enemies[enemyName];
   }
 
+  showEnemyInfo() {
+    if (this.enemy) {
+      alert(
+        `Nepřítel: ${this.enemy.name}\n` +
+          `Zdraví: ${this.enemy.health} HP\n` +
+          `Útok: 1-${this.enemy.attack} dmg\n` +
+          `Obrana: ${this.enemy.defense}\n` +
+          `Zbraň: ${this.enemy.weapon}\n` +
+          `Brnění: ${this.enemy.armor}`
+      );
+    } else {
+      alert("Nepřítel nebyl nalezen.");
+    }
+  }
+
   resetCombatMessages() {
     document.querySelector(".damageToEnemy").textContent = "";
     document.querySelector(".damageToHero").textContent = "";
@@ -120,25 +135,25 @@ export class Game {
 
     if (this.hero.name === "Válečník") {
       this.hero.addItem({
-        name: "Dlouhý meč (+5)",
+        name: "Dlouhý meč (+6)",
         type: "weapon",
-        attackBonus: 5,
+        attackBonus: 6,
       });
-      rewardMessage = "Získáváš Dlouhý meč (+5 útok)!";
+      rewardMessage = "Získáváš Dlouhý meč (+6 útok)!";
     } else if (this.hero.name === "Lučištník") {
       this.hero.addItem({
-        name: "Lehký luk (+8)",
+        name: "Lehký luk (+9)",
         type: "weapon",
-        attackBonus: 8,
+        attackBonus: 9,
       });
-      rewardMessage = "Získáváš Lehký luk (+8 útok)!";
+      rewardMessage = "Získáváš Lehký luk (+9 útok)!";
     } else if (this.hero.name === "Mág") {
       this.hero.addItem({
-        name: "Magická hůl (+11)",
+        name: "Magická hůl (+12)",
         type: "weapon",
-        attackBonus: 11,
+        attackBonus: 12,
       });
-      rewardMessage = "Získáváš Magickou hůl (+11 útok)!";
+      rewardMessage = "Získáváš Magickou hůl (+12 útok)!";
     } else {
       alert("Hrdina nemá specifickou odměnu.");
       return;

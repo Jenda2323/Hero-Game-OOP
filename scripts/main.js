@@ -17,12 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("selected-hero").innerHTML = `
         <strong>${game.hero.name}</strong><br>
         Zdraví: ${game.hero.health} HP<br>
-        Útok: ${game.hero.attack}<br>
+        Útok: 1-${game.hero.attack}<br>
         Obrana: ${game.hero.defense}<br>
         ${game.hero.showInventory()}
       `;
       document.getElementById("start-game-btn").disabled = false;
     });
+  });
+
+  document.getElementById("enemy-info-btn").addEventListener("click", () => {
+    game.showEnemyInfo();
   });
 
   // Příběhové sekce
@@ -125,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
           'Vesničan: "Tvé další kroky povedou do temného lesa. Dávej si pozor na záludné pasti a poslouchej zvuky lesa. Jestli narazíš na místo s pěti sochami bohů, vždy se ukloň k bohovi svítání "';
         dialogueDiv.style.display = "none"; // Skryje možnosti dialogu
       }
-
       // Po interakci se objeví tlačítko pro pokračování
       setTimeout(() => {
         const continueBtn1 = document.getElementById("continue-btn1");
