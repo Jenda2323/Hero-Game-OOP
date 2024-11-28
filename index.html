@@ -126,13 +126,28 @@
 
     <!-- dalsi -->
     <div class="game-section next-section1" style="display: none">
-      <h4>Pokračování příště ...</h4>
-      <p></p>
-      <button id="continue-btn1">Pokračovat</button>
+      <p>
+        Po chvíli cesty narazíš na starého vesničana. Vypadá, že na tebe čekal.
+        "Zdravím tě, hrdino," řekne klidným hlasem. "Vidím, že máš za sebou
+        těžké chvíle. Mohu ti pomoci, ale jen s jednou věcí. Vyber si: léčbu tvých zranění nebo radu,
+        která ti pomůže v tvém putování."
+      </p>
+      <div id="dialogue">
+        <button class="dialogue-option" data-action="heal">
+          "Potřebuji vyléčit ..."
+        </button>
+        <button class="dialogue-option" data-action="advice">
+          "Chtěl bych radu ..."
+        </button>
+      </div>
+      <div id="dialogue-result"></div>
+      <button id="continue-btn1" style="display: none;">Pokračovat</button>
     </div>
 
     <!-- dalsi -->
-
+    <div class="game-section next-section2" style="display: none;">
+      <p>pokacovani2</p>
+    </div>
     <script type="module" src="./scripts/main.js"></script>
   </body>
 </html>

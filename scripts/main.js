@@ -74,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
   //hadanka
   document.getElementById("submit-answer-btn").addEventListener("click", () => {
     const answer = document.getElementById("puzzle-answer").value.toLowerCase();
-    const puzzleResult = document.getElementById("puzzle-result");
     const puzzleResult1 = document.getElementById("puzzle-result1");
 
     if (answer === "čas" || answer === "time" || answer === "cas") {
@@ -102,5 +101,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("restart-game-btn").addEventListener("click", () => {
     location.reload();
+  });
+
+  // Obsluha dialogu s vesničanem
+  document.querySelectorAll(".dialogue-option").forEach((button) => {
+    button.addEventListener("click", () => {
+      const action = button.getAttribute("data-action");
+      const villagerLine = document.getElementById("dialogue-result");
+      const dialogueDiv = document.getElementById("dialogue");
+
+      if (action === "heal") {
+        if (game.hero.health < game.hero.maxHealth) {
+          game.hero.health = game.hero.maxHealth; // Nastaví zdraví na maximum
+          villagerLine.textContent =
+            'Vesničan: "Tvá zranění jsou nyní vyléčena. Dávej na se sebe příště větší pozor"';
+        } else {
+          villagerLine.textContent =
+            'Vesničan: "Vypadá to, že už jsi zcela zdráv."';
+        }
+        dialogueDiv.style.display = "none"; // Skryje možnosti dialogu
+      } else if (action === "advice") {
+        villagerLine.textContent =
+          'Vesničan: "Tvé další kroky povedou do temného lesa. Dávej si pozor na záludné pasti a poslouchej zvuky lesa. Jestli narazíš na místo s pěti sochami bohů, vždy se ukloň k bohovi svítání "';
+        dialogueDiv.style.display = "none"; // Skryje možnosti dialogu
+      }
+
+      // Po interakci se objeví tlačítko pro pokračování
+      setTimeout(() => {
+        const continueBtn1 = document.getElementById("continue-btn1");
+        continueBtn1.style.display = "block";
+
+        continueBtn1.addEventListener("click", () => {
+          game.showSection("next-section2");
+        });
+      }, 2000);
+    });
   });
 });
