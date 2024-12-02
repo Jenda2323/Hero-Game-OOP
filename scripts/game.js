@@ -75,10 +75,10 @@ export class Game {
     return false;
   }
 
-  //kontrola smrti mimo boj 
+  //kontrola smrti mimo boj
   isGameOverStory() {
     if (this.hero.health <= 0) {
-      this.showSection("game-over"); 
+      this.showSection("game-over");
     }
   }
 
@@ -178,5 +178,88 @@ export class Game {
     continueBtn.addEventListener("click", () => {
       this.showSection("next-section1");
     });
+  }
+
+  //vesnican
+  handleVillagerDialogue(action, villagerLine, dialogueDiv, continueBtn1) {
+    if (action === "heal") {
+      if (this.hero.health < this.hero.maxHealth) {
+        this.hero.health = this.hero.maxHealth; // Hrdina se uzdraví
+        villagerLine.textContent =
+          'Vesničan: "Tvá zranění jsou nyní vyléčena. Dávej na sebe příště větší pozor."';
+      } else {
+        villagerLine.textContent =
+          'Vesničan: "Vypadá to, že už jsi zcela zdráv."';
+      }
+      dialogueDiv.style.display = "none"; // Skryje možnosti dialogu
+    } else if (action === "advice") {
+      villagerLine.textContent =
+        'Vesničan: "Tvé další kroky povedou do temného lesa. Dávej si pozor na záludné pasti a poslouchej zvuky lesa. Jestli narazíš na místo s pěti sochami bohů, vždy se ukloň k bohovi svítání."';
+      dialogueDiv.style.display = "none"; // Skryje možnosti dialogu
+    }
+
+    setTimeout(() => {
+      continueBtn1.style.display = "block"; // Zobrazení tlačítka pokračování
+    }, 2000);
+  }
+
+  // barrier sekce
+  handleBarrierAction(action, elements) {
+    const { barrierResult, continueBtn, diceBtn, diceInfo } = elements;
+
+    if (action === "courage") {
+      barrierResult.textContent =
+        "Rozhodl ses pro odvahu. Kámen se třese, ale zůstává stát. Dokázal jsi projít.";
+      setTimeout(() => {
+        continueBtn.style.display = "block";
+      }, 3000);
+    } else if (action === "strength") {
+      barrierResult.textContent =
+        "Používáš svou sílu k odstranění části kamene. Klikni na tlačítko pro hod kostkou.";
+      diceBtn.style.display = "block";
+
+      diceBtn.onclick = () => {
+        const diceRoll = Math.floor(Math.random() * 6) + 1; // Hod kostkou
+        if (diceRoll >= 4) {
+          diceInfo.textContent = `Hodil jsi ${diceRoll}! Podařilo se ti prorazit zátarasu bez zranění.`;
+        } else {
+          const damage = 4; // Poškození při neúspěchu
+          this.hero.health -= damage;
+          diceInfo.textContent = `Hodil jsi ${diceRoll}. Podařilo se ti prorazit zátarasu, ale utrpěl jsi ${damage} zranění.`;
+
+          // Kontrola zdraví hrdiny
+          if (this.hero.health <= 0) {
+            setTimeout(() => this.isGameOverStory(), 3000);
+            return;
+          }
+        }
+        diceBtn.style.display = "none"; // Skrytí tlačítka po hodu
+        setTimeout(() => {
+          continueBtn.style.display = "block";
+        }, 3000);
+      };
+    } else if (action === "wisdom") {
+      const answer = prompt(
+        "Runy září a hlas ti pokládá otázku: Můžeš mě slyšet, ale nikdy nevidět. Jsem ti blíž, čím víc utíkáš. Co jsem?"
+      ).toLowerCase();
+      if (answer === "vítr" || answer === "vitr" || answer === "wind") {
+        barrierResult.textContent =
+          "Odpověděl jsi správně. Runy zmizely a zátarasa se otevřela.";
+        setTimeout(() => {
+          continueBtn.style.display = "block";
+        }, 3000);
+      } else {
+        barrierResult.innerHTML =
+          "Špatná odpověď! Z run vystřelila přímo proti tobě ohnivá koule a způsobila ti zranění <strong>7 životů</strong>";
+        this.hero.health -= 7;
+        if (this.hero.health <= 0) {
+          setTimeout(() => this.isGameOverStory(), 5000);
+        } else {
+          setTimeout(() => {
+            continueBtn.style.display = "block";
+          }, 3000);
+        }
+      }
+    }
   }
 }
