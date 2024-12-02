@@ -116,6 +116,21 @@ export class Game {
     }
   }
 
+  // funkce na spusteni souboje
+
+  startSpecialBattle(enemyName, onVictory, onDefeat) {
+    // Vybere speciálního nepřítele
+    this.selectEnemy(enemyName);
+    this.showSection("fight");
+    this.resetCombatMessages();
+    this.updateCombatUI();
+
+    // Nastaví logiku souboje
+    document.querySelector(".attack-btn").onclick = () => {
+      this.handleBattleRound(onVictory, onDefeat);
+    };
+  }
+
   showSection(sectionClass) {
     document.querySelectorAll(".game-section").forEach((section) => {
       section.style.display = "none";

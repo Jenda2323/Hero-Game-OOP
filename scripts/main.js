@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     game.showSection("enemy-selection");
   });
 
-  //vyber prvniho nepritele
+  // Vyber prvního nepřítele
   document.querySelectorAll(".enemy").forEach((button) => {
     button.addEventListener("click", () => {
       const enemyName = button.getAttribute("data-enemy");
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  //prvni souboj
+  // První souboj
   document.getElementById("choose-enemy-btn").addEventListener("click", () => {
     game.showSection("fight");
 
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   });
 
-  //pred hadankou
+  // Před hádankou
   document.getElementById("btn-yes").addEventListener("click", () => {
     game.showSection("next-section");
   });
@@ -75,31 +75,27 @@ document.addEventListener("DOMContentLoaded", () => {
     game.showSection("next-section1");
   });
 
-  //hadanka
+  // Hádanka
   document.getElementById("submit-answer-btn").addEventListener("click", () => {
     const answer = document.getElementById("puzzle-answer").value.toLowerCase();
     const puzzleResult1 = document.getElementById("puzzle-result1");
+    const battleGhostBtn = document.getElementById("battle-ghost-btn");
 
     if (answer === "čas" || answer === "time" || answer === "cas") {
       game.rewardHero();
     } else {
-      puzzleResult1.textContent =
-        "Špatná odpověď! Cítíš jak se ochladil vzduch. Připrav se na souboj...";
-
-      // Nastavení zpoždění před spuštěním souboje
       setTimeout(() => {
-        game.selectEnemy("darkGhost");
-        game.updateCombatUI();
-        game.resetCombatMessages();
-        game.showSection("fight");
-
-        document.querySelector(".attack-btn").onclick = () => {
-          game.handleBattleRound(
-            () => game.showSection("next-section1"),
-            () => alert("Hrdina byl poražen!")
-          );
-        };
-      }, 5000); // Zpoždění 5 sekundy
+        puzzleResult1.textContent =
+          "Špatná odpověď! Z truhly se vynoří stín plný nenávisti. Připrav se na souboj!";
+        battleGhostBtn.style.display = "block";
+      }, 1000);
+      battleGhostBtn.addEventListener("click", () => {
+        game.startSpecialBattle(
+          "darkGhost",
+          () => game.showSection("next-section1"),
+          () => alert("Hrdina byl poražen!")
+        );
+      });
     }
   });
 
