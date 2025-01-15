@@ -152,4 +152,34 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("continue-btn2").addEventListener("click", () => {
     game.showSection("next-section3"); // Přepnutí na další sekci
   });
+
+  //Sber nebo Lov
+  document.querySelectorAll(".eat-option").forEach((button) => {
+    button.addEventListener("click", () => {
+      const action = button.getAttribute("data-action");
+      const eatResult = document.getElementById("eat-result");
+      const huntResult = document.getElementById("hunt-result");
+      const collectResult = document.getElementById("collect-result");
+      const huntBtn = document.getElementById("hunt-btn");
+      const continueBtn = document.getElementById("continue-btn3");
+      // Skryjeme tlačítka po výběru akce
+      document.querySelectorAll(".eat-option").forEach((btn) => {
+        btn.style.display = "none";
+      });
+
+      // Zpracování akce jidlo
+      game.handleEatAction(action, {
+        eatResult,
+        huntResult,
+        collectResult,
+        huntBtn,
+        continueBtn,
+      });
+    });
+  });
+
+  document.getElementById("continue-btn3").addEventListener("click", () => {
+    console.log("Kliknutí na continueBtn3");
+    game.showSection("next-section4"); // Přepnutí na další sekci
+  });
 });

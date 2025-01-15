@@ -15,6 +15,9 @@ body {
   font-size: 1.8rem;
   background-color: rgba(241, 211, 161, 0.8);
 }
+.story {
+  text-align: left;
+}
 .banner-container {
   margin-bottom: 2rem;
   display: flex;
@@ -57,8 +60,8 @@ button {
   font-size: 1.7rem;
   border-radius: 10px;
   padding: 10px;
-  display: block; 
-  margin: 1rem auto; 
+  display: block;
+  margin: 1rem auto;
   text-align: center;
 }
 button:hover {
@@ -154,4 +157,11 @@ input:focus {
 
 #puzzle-result1 {
   font-style: italic;
+}
+
+.damage{
+  color: red;
+}
+.heal{
+  color :green;
 }

@@ -78,7 +78,27 @@ export class Game {
   //kontrola smrti mimo boj
   isGameOverStory() {
     if (this.hero.health <= 0) {
-      this.showSection("game-over");
+      if (!document.getElementById("game-over-btn")) {
+        const gameOverButton = document.createElement("button");
+        gameOverButton.id = "game-over-btn";
+        gameOverButton.textContent = "Našla si tě smrt ...";
+        gameOverButton.style.display = "block";
+        gameOverButton.style.margin = "20px auto";
+        gameOverButton.style.padding = "10px 20px";
+        gameOverButton.style.fontSize = "1.2rem";
+        gameOverButton.style.cursor = "pointer";
+
+        const currentSection = document.querySelector(
+          ".game-section:not([style*='display: none'])"
+        );
+        if (currentSection) {
+          currentSection.appendChild(gameOverButton);
+        }
+
+        gameOverButton.onclick = () => {
+          this.showSection("game-over");
+        };
+      }
     }
   }
 
@@ -139,6 +159,11 @@ export class Game {
     const targetSection = document.querySelector(`.${sectionClass}`);
     if (targetSection) {
       targetSection.style.display = "block";
+      console.log(`Sekce "${sectionClass}" zobrazena.`);
+
+      targetSection.querySelectorAll(".story").forEach((element) => {
+        element.style.display = "block";
+      });
     } else {
       console.error(`Sekce "${sectionClass}" nebyla nalezena.`);
     }
@@ -240,7 +265,7 @@ export class Game {
         } else {
           const damage = 4; // Poškození při neúspěchu
           this.hero.health -= damage;
-          diceInfo.textContent = `Hodil jsi ${diceRoll}. Podařilo se ti prorazit zátarasu, ale utrpěl jsi ${damage} zranění.`;
+          diceInfo.innerHTML = `Hodil jsi ${diceRoll}. Podařilo se ti prorazit zátarasu, ale utrpěl jsi <span class="damage"> ${damage} zranění </span>.`;
 
           // Kontrola zdraví hrdiny
           if (this.hero.health <= 0) {
@@ -265,7 +290,8 @@ export class Game {
         }, 3000);
       } else {
         barrierResult.innerHTML =
-          "Špatná odpověď! Z run vystřelila přímo proti tobě ohnivá koule a způsobila ti zranění <strong>7 životů</strong>";
+          "Špatná odpověď! Z run vystřelila přímo proti tobě ohnivá koule a způsobila ti zranění <span class='damage'>7 životů</span>";
+
         this.hero.health -= 7;
         if (this.hero.health <= 0) {
           setTimeout(() => this.isGameOverStory(), 5000);
@@ -275,6 +301,159 @@ export class Game {
           }, 3000);
         }
       }
+    }
+  }
+
+  //jidlo metoda sekce
+  handleEatAction(action, elements) {
+    const { eatResult, huntBtn, huntResult, continueBtn, collectResult } =
+      elements;
+
+    //lov
+
+    if (action === "hunting") {
+      document.querySelectorAll(".story").forEach((element) => {
+        element.style.display = "none";
+      });
+      eatResult.innerHTML = `
+    <p class="story">
+      Jakmile ses rozhodl pro lov, instinkt tě vede hlouběji do lesa. Kroky
+      jsou opatrné, zrak upřený na stíny mezi stromy. Les je tichý, až
+      příliš tichý – jako by tě samotná příroda sledovala. Náhle se mezi
+      větvemi mihne pohyb. Malé srnčí, štíhlé a rychlé, okusuje nízké
+      keře. Pomalu se přikrčíš, tvé srdce bije rychleji. Musíš jednat tiše,
+      protože každé šustnutí by mohlo zvíře zahnat na útěk. Připravíš zbraň
+      – luk, oštěp, nebo jen ostrý kámen. První hod míjí, ale zvíře
+      nezareaguje, stále zaujaté svým soustem. Napřímíš se, míříš lépe.
+    </p>
+    <p> Hoď kostkou </p>
+  `;
+      huntBtn.style.display = "block";
+
+      huntBtn.onclick = () => {
+        const diceRoll = Math.floor(Math.random() * 6) + 1;
+        eatResult.style.display = "none";
+        huntBtn.style.display = "none";
+        document.querySelectorAll(".story").forEach((element) => {
+          element.style.display = "none";
+        });
+        if (diceRoll >= 4) {
+          huntResult.innerHTML = `<p style="color: green">Hodil jsi ${diceRoll} !</p>
+          <p class="story">Šíp zasáhne cíl. Srnčí zakňučí a zhroutí se. Cítíš směs úlevy a lítosti. Zvedneš tělo zvířete a vydáš se zpět na mýtinu. Jakmile dorazíš, rozděláš oheň pomocí suchých větví. Les kolem ti stále připomíná svou přítomnost – praskání větví, šumění listů. Opékáš maso na ohni, jeho vůně naplňuje vzduch. Když konečně usedáš k jídlu, pocítíš vděčnost. Přesto tě něco nutí být na pozoru – jako by les nechtěl, abys z něj bral víc, než potřebuješ. </p>`;
+
+          setTimeout(() => {
+            continueBtn.style.display = "block";
+          }, 3000);
+        } else {
+          const damage = 5;
+
+          huntResult.innerHTML = `<p style="color: red">Hodil jsi ${diceRoll} !</p>
+          <p class="story">Šíp mine cíl. Srnčí sebou trhne a okamžitě zmizí v hustém porostu. Cítíš směs zklamání a frustrace. Prázdnýma rukama se pomalu vracíš zpět na mýtinu, přemítáš nad každým krokem, který tě možná prozradil. Les kolem tebe zůstává neúprosně klidný, ale jeho ticho se zdá těžší, téměř zlověstné.
+          <br>
+          Rozhlédneš se po mýtině a zvažuješ své možnosti. Bez ohně, bez jídla, tvé tělo protestuje a žaludek tě zrazuje nepříjemným kručením.  Místo vůně opékaného masa cítíš jen vlhkost mechu a náznak shnilého dřeva. Usedáš pod nejbližší strom, unavený a zklamaný.<span style="color: red"> Hrdina ztrácí ${damage} životů </span></p>`;
+
+          this.hero.health -= damage;
+          if (this.hero.health <= 0) {
+            this.isGameOverStory();
+          } else {
+            setTimeout(() => {
+              continueBtn.style.display = "block";
+            }, 3000);
+          }
+        }
+      };
+    } else if ((action = "collecting")) {
+      document.querySelectorAll(".story").forEach((element) => {
+        element.style.display = "none";
+      });
+
+      eatResult.innerHTML = `<p class="story">Po chvíli hledání narazíš na tři keře, každý z nich obsypaný jinými druhy bobulí. Zastavíš se a pozoruješ je. Nemáš možnost poznat, které jsou bezpečné, a musíš se rozhodnout. Cítíš, jak se ti kručí v žaludku, ale víš, že špatná volba by mohla mít vážné následky
+      <br><br>
+      První keř má <span style="color: red">červené bobule</span>, které vypadají šťavnatě a lákavě. Přesto něco na nich vzbuzuje obavy – jejich jasná barva tě varuje, že mohou být jedovaté.
+      <br><br>
+      Druhý keř je obsypán <span style="color: blue">modrými bobulemi</span>, které vypadají zvláštně. Mají nepravidelný tvar a matný povrch. Možná jsou léčivé, ale stejně tak mohou způsobit nevolnost.
+      <br><br>
+      Třetí keř nese <span style="color: brown">hnědé bobule</span>, které vypadají tajemně. Na první pohled je zřejmé, že tyto plody budou mít nejsilnější efekt, ať už pozitivní, nebo negativní.</p>
+      <br></br>
+      Které bobule se odvážís nasbírat a sníst?`;
+
+      document.querySelectorAll(".collecting-option").forEach((element) => {
+        element.style.display = "block";
+      });
+
+      document.querySelectorAll(".collecting-option").forEach((button) => {
+        button.addEventListener("click", () => {
+          const action = button.getAttribute("data-action");
+          //--------
+          if (action === "red") {
+            const healing = 6;
+
+            document.querySelectorAll(".story").forEach((element) => {
+              element.style.display = "none";
+            });
+
+            document
+              .querySelectorAll(".collecting-option")
+              .forEach((button) => {
+                button.style.display = "none";
+              });
+
+            eatResult.innerHTML = `<p>Cítíš, jak tě zaplavuje vlna energie. Každé sousto ti vrací zdraví a najednou máš pocit, že zvládneš cokoliv. Tvé rány se zacelují a bolest ustupuje.
+            <br>
+            <span class="heal"> Hrdina je vyléčen o ${healing} bodů zdraví</span>`;
+
+            this.hero.heal(healing);
+            setTimeout(() => {
+              continueBtn.style.display = "block";
+            }, 2000);
+          }
+          //---------
+          if (action === "blue") {
+            const damage = 6;
+
+            document.querySelectorAll(".story").forEach((element) => {
+              element.style.display = "none";
+            });
+
+            document
+              .querySelectorAll(".collecting-option")
+              .forEach((button) => {
+                button.style.display = "none";
+              });
+
+            eatResult.innerHTML = `<p>Zpočátku mají příjemnou chuť, ale najednou cítíš ostrou bolest v žaludku. Ztrácíš dech a tělo tě zrazuje. Tyto bobule tě oslabily víc, než jsi čekal.
+            <br>
+            <span class="damage"> Hrdina je zraněn o ${damage} bodů zdraví</span>`;
+
+            this.hero.health -= damage;
+            if (this.hero.health <= 0) {
+              this.isGameOverStory();
+            } else {
+              setTimeout(() => {
+                continueBtn.style.display = "block";
+              }, 2000);
+            }
+          }
+          if (action === "brown") {
+            document.querySelectorAll(".story").forEach((element) => {
+              element.style.display = "none";
+            });
+
+            document
+              .querySelectorAll(".collecting-option")
+              .forEach((button) => {
+                button.style.display = "none";
+              });
+
+            eatResult.innerHTML = `Jakmile je sníš, svět kolem tebe se rozostří. Tvé tělo ztuhne a dech se zpomalí. Uvědomuješ si, že jsi udělal osudovou chybu. Les kolem tebe mizí ve tmě...`;
+
+            this.hero.health = 0;
+            if (this.hero.health <= 0) {
+              this.isGameOverStory();
+            }
+          }
+        });
+      });
     }
   }
 }

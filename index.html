@@ -27,7 +27,7 @@
     </div>
     <div class="game-section game-over" style="display: none">
       <h2>Dobrodružství končí</h2>
-      <p>Hrdina přišel o všechny své životy a jeho cesta skončila.</p>
+      <p>Hrdina přišel o všechny své životy a tvá zde cesta skončila.</p>
       <button onclick="location.reload()">Restartovat hru</button>
     </div>
     <!-- MENU -->
@@ -44,7 +44,7 @@
     <!-- UVOD -->
     <div class="game-section start" style="display: none">
       <h2>1.Act</h2>
-      <p>
+      <p class="story">
         Vítej, hrdino! Temné časy přišly na tento svět. Království, které kdysi
         vzkvétalo, je nyní zasaženo zlem. Po celém území se šíří hrozby v podobě
         zákeřných monster a nebezpečných stvůr. Dávné tajemství, které čeká na
@@ -58,7 +58,7 @@
 
     <!-- enemy choose -->
     <div class="game-section enemy-selection" style="display: none">
-      <p>
+      <p class="story">
         Po chvíli cestování narazíš na opuštěnou vesnici. Zdi domů jsou zřícené,
         cestičky jsou pokryté mechem a ve vzduchu se vznáší zápach zkaženého
         masa. Něco není v pořádku. Jak procházíš zničenými ulicemi, začneš
@@ -97,7 +97,7 @@
     </div>
     <!-- BOJ -->
     <div class="game-section afterBattle" style="display: none">
-      <p>
+      <p class="story">
         Po poražení svého protivníka procházíš dále ruinami vesnice. Stíny se
         protahují, jak slunce zapadá za obzor. Ulice tě vedou ke starému
         náměstí, kde uprostřed stojí zchátralá studna. Na kamenném okraji leží
@@ -125,14 +125,14 @@
       <div id="puzzle-result"></div>
       <br />
       <div id="puzzle-result1" style="font-size: larger"></div>
-      <button id="battle-ghost-btn" style="display: none;">Pokračuj ...</button>
+      <button id="battle-ghost-btn" style="display: none">Pokračuj ...</button>
       <button id="continue-btn" style="display: none">Pokračovat</button>
     </div>
     <!-- Hádanka -->
 
     <!-- dalsi -->
     <div class="game-section next-section1" style="display: none">
-      <p>
+      <p class="story">
         Po chvíli cesty narazíš na starého vesničana. Vypadá, že na tebe čekal.
         "Zdravím tě, hrdino," řekne klidným hlasem. "Vidím, že máš za sebou
         těžké chvíle. Mohu ti pomoci, ale jen s jednou věcí. Vyber si: léčbu
@@ -150,9 +150,9 @@
       <button id="continue-btn1" style="display: none">Pokračovat</button>
     </div>
 
-    <!-- dalsi -->
+    <!-- bariera -->
     <div class="game-section next-section2" style="display: none">
-      <p>
+      <p class="story">
         Vycházíš z vesnice a pokračuješ rovnou do hustého lesa. Jakmile
         překročíš hranici lesa, teplota klesne a světlo téměř zmizí. Les dýchá
         vlastním životem, jako by se jeho stromy a keře neustále hýbaly,
@@ -177,9 +177,59 @@
       <button id="continue-btn2" style="display: none">Pokračovat</button>
     </div>
 
-    <div class="game-section next-section3" style="display: none">
-      <p>pokracovani po zkousce</p>
+    <!-- Jidlo -->
+    <div class="game-section next-section3" style="display: none;">
+      <p class="story">
+        Temný les tě obklopuje ze všech stran, a jak pokračuješ hluboko do jeho
+        stínů, čas ztrácí svůj význam. Nemáš ponětí, jak dlouho už putuješ –
+        hodiny,únavné hodiny. Tvůj žaludek ti však dává jasně najevo, že je čas
+        na odpočinek a jídlo je nevyhnutelné. Stromy kolem tebe jsou vysoké a
+        jejich větve spletené v neproniknutelnou střechu. Půda je měkká a
+        pokrytá mechem. Po chvíli narazíš na malou mýtinu, ideální místo pro
+        tábor. Ale nejdřív je potřeba vyřešit prázdný žaludek.
+        <br />
+        <br />
+        Možnost by byla buď něco ulovit nebo se aspoň pokusit něco posbírat
+        (bobule atd.).
+        <br />
+      </p>
+      <p class="story" style="text-align: center">Rozhodneš se pro:</p>
+      <button class="eat-option" data-action="hunting">Lov</button>
+      <button class="eat-option" data-action="collecting">Sběr</button>
+      <br />
+      <p id="eat-result"></p>
+      <button id="hunt-btn" style="display: none">Lovit</button>
+      <p id="hunt-result"></p>
+      <p id="collect-result"></p>
+      <button
+        class="collecting-option"
+        data-action="red"
+        style="color: red; display: none"
+      >
+        Červené
+      </button>
+      <button
+        class="collecting-option"
+        data-action="blue"
+        style="color: blue; display: none"
+      >
+        Modré
+      </button>
+      <button
+        class="collecting-option"
+        data-action="brown"
+        style="color: brown; display: none"
+      >
+        Hnědé
+      </button>
+      <button id="continue-btn3" style="display: none">Pokračovat</button>
     </div>
+
+    <!-- dalsi sekce -->
+    <div class="game-section next-section4" style="display: none">
+      <p>4.sekce</p>
+    </div>
+
     <script type="module" src="./scripts/main.js"></script>
   </body>
 </html>
