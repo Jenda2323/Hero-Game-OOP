@@ -152,18 +152,32 @@ export class Game {
   }
 
   showSection(sectionClass) {
+    // Skryje všechny sekce
     document.querySelectorAll(".game-section").forEach((section) => {
       section.style.display = "none";
     });
 
+    // Najde cílovou sekci
     const targetSection = document.querySelector(`.${sectionClass}`);
     if (targetSection) {
+      // Zobrazí cílovou sekci
       targetSection.style.display = "block";
       console.log(`Sekce "${sectionClass}" zobrazena.`);
 
+      // Zajistí, že všechny .story v této sekci jsou viditelné
       targetSection.querySelectorAll(".story").forEach((element) => {
         element.style.display = "block";
       });
+
+      // Dynamicky přidá obrázek, pokud ještě neexistuje
+      const imgPath = `./pictures/sections/${sectionClass}.png`; // Generovaná cesta k obrázku
+      if (!targetSection.querySelector(".section-image")) {
+        const sectionImage = document.createElement("img"); // Vytvoření obrázku
+        sectionImage.src = imgPath;
+        sectionImage.alt = sectionClass;
+        sectionImage.classList.add("section-image");
+        targetSection.prepend(sectionImage); // Přidání obrázku na začátek sekce
+      }
     } else {
       console.error(`Sekce "${sectionClass}" nebyla nalezena.`);
     }

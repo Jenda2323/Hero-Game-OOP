@@ -27,24 +27,37 @@
     </div>
     <!-- MENU -->
     <div class="game-section hero-selection">
-  <h2>Vyber si hrdinu</h2>
-  <button class="hero" data-hero="warrior">
-    <img src="./pictures/heroes/warrior.png" alt="Válečník" class="hero-icon" />
-    Válečník
-  </button>
-  <button class="hero" data-hero="mage">
-    <img src="./pictures/heroes/mage.png" alt="Mág" class="hero-icon" />
-    Mág
-  </button>
-  <button class="hero" data-hero="archer">
-    <img src="./pictures/heroes/archer.png" alt="Lučištník" class="hero-icon" />
-    Lučištník
-  </button>
-  <p><span id="selected-hero"></span></p>
-  <button id="start-game-btn" disabled>pokračuj</button>
-</div>
-    
-    
+      <h2>Vyber si hrdinu</h2>
+      <button class="hero" data-hero="warrior">
+        <img
+          src="./pictures/heroes/warrior.png"
+          alt="Válečník"
+          class="hero-icon"
+        />
+        Válečník
+      </button>
+      <button class="hero" data-hero="mage">
+        <img src="./pictures/heroes/mage.png" alt="Mág" class="hero-icon" />
+        Mág
+      </button>
+      <button class="hero" data-hero="archer">
+        <img
+          src="./pictures/heroes/archer.png"
+          alt="Lučištník"
+          class="hero-icon"
+        />
+        Lučištník
+      </button>
+      <p><span id="selected-hero"></span></p>
+      <button id="start-game-btn" disabled>pokračuj</button>
+    </div>
+
+    <div class="game-section game-over" style="display: none">
+      <h2>Dobrodružství končí</h2>
+      <p>Hrdina přišel o všechny své životy. Jeho cesta zde končí.</p>
+      <button onclick="location.reload()">Restartovat hru</button>
+    </div>
+
     <!-- MENU -->
 
     <!-- UVOD -->
@@ -60,6 +73,7 @@
       </p>
       <button id="start-btn-1">pokračuj</button>
     </div>
+
     <!-- UVOD -->
 
     <!-- enemy choose -->
@@ -184,7 +198,7 @@
     </div>
 
     <!-- Jidlo -->
-    <div class="game-section next-section3" style="display: none;">
+    <div class="game-section next-section3" style="display: none">
       <p class="story">
         Temný les tě obklopuje ze všech stran, a jak pokračuješ hluboko do jeho
         stínů, čas ztrácí svůj význam. Nemáš ponětí, jak dlouho už putuješ –
