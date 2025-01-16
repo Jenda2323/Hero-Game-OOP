@@ -7,12 +7,12 @@ export function initializeInventoryModal(game) {
   // Zobrazení modálního okna
   infoButton.addEventListener("click", () => {
     if (game.hero) {
-      characterInfo.innerHTML = `
-        <strong>${game.hero.name}</strong><br>
-        Zdraví: ${game.hero.health}/${game.hero.maxHealth} HP<br>
-        Útok: ${game.hero.attack}<br>
-        Obrana: ${game.hero.defense}<br><br>
-        <strong>Inventář:</strong><br>${game.hero.showInventory()}
+      characterInfo.innerHTML = `<strong><h3>${game.hero.name}</h3>
+      </strong>${game.hero.showInventory()}<br><br>
+        <u>Zdraví:</u><span style="color: red"> ${game.hero.health}/${game.hero.maxHealth}</span> HP<br>
+        <u>Útok:</u> ${game.hero.attack}<br>
+        <u>Obrana:</u> ${game.hero.defense}<br><br>
+        
       `;
     } else {
       characterInfo.textContent = "Není vybrán žádný hrdina.";

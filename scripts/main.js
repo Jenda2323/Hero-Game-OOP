@@ -15,11 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
       game.selectHero(heroName);
 
       document.getElementById("selected-hero").innerHTML = `
-        <strong>${game.hero.name}</strong><br>
-        Zdraví: ${game.hero.health} HP<br>
-        Útok: 1-${game.hero.attack}<br>
-        Obrana: ${game.hero.defense}<br>
-        ${game.hero.showInventory()}
+        <strong><h3>${game.hero.name}</h3></strong>
+        ${game.hero.showInventory()}<br><br>
+        <u>Zdraví:</u> ${game.hero.health} HP<br>
+        <u>Útok:</u> 1-${game.hero.attack}<br>
+        <u>Obrana:</u> ${game.hero.defense}<br>
+        
       `;
       document.getElementById("start-game-btn").disabled = false;
     });

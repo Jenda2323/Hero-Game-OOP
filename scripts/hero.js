@@ -1,3 +1,5 @@
+import { heroImageMap } from "./heroes.js";
+
 export class Hero {
   constructor(name, health, attack, defense, weapon, armor) {
     this.name = name;
@@ -51,11 +53,15 @@ export class Hero {
   }
   // Zobrazení inventáře
   showInventory() {
+    const imgFileName = heroImageMap[this.name] || "default.png";
+    const imgPath = `./pictures/heroes/${imgFileName}`;
+    console.log("Generovaná cesta k obrázku:", imgPath);
     return `
-      Zbraň: ${this.inventory.weapon ? this.inventory.weapon.name : "Žádná"} 
+    <img src="${imgPath}" alt="${this.name}" class="hero-icon" />
+    <br><br>
+    <u>Zbraň:</u> ${this.inventory.weapon ? this.inventory.weapon.name : "Žádná"} 
     <br>
-      Brnění: ${this.inventory.armor ? this.inventory.armor.name : "Žádné"} 
-    
-    `;
+    <u>Brnění:</u> ${this.inventory.armor ? this.inventory.armor.name : "Žádné"} 
+  `;
   }
 }

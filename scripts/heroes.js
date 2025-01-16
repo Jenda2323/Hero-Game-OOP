@@ -26,3 +26,10 @@ export const heroes = {
     { name: "Kožená zbroj (+3)", type: "armor", defenseBonus: 3 }
   ),
 };
+
+export const heroImageMap = {
+  Válečník: "warrior.png",
+  Mág: "mage.png",
+  Lučištník: "archer.png",
+};
+
