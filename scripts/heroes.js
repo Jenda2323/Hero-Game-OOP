@@ -3,14 +3,16 @@ import { Hero } from "./hero.js";
 export const heroes = {
   warrior: new Hero(
     "Válečník",
-    35,
-    0,
-    0,
+    35, //aktualni zdravi
+    35, //max. zdravi
+    0,  //utok
+    0,  //obrana
     { name: "Krátký zrezlý meč (+5)", type: "weapon", attackBonus: 5 },
     { name: "Nekvalitní střední brnění (+5)", type: "armor", defenseBonus: 5 }
   ),
   mage: new Hero(
     "Mág",
+    25,
     25,
     0,
     0,
@@ -19,6 +21,7 @@ export const heroes = {
   ),
   archer: new Hero(
     "Lučištník",
+    30,
     30,
     0,
     0,

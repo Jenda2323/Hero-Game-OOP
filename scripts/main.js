@@ -8,6 +8,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initializeInventoryModal(game);
 
+  // Připojení tlačítek k metodám hry
+  document.getElementById("save-btn").addEventListener("click", () => {
+    game.saveGame();
+  });
+
+  document.getElementById("load-btn").addEventListener("click", () => {
+    console.log("Načítání hry...");
+    game.loadGame();
+    initializeInventoryModal(game);
+  });
+  document.getElementById("exit-btn").addEventListener("click", () => {
+    const confirmExit = confirm("Opravdu chceš ukončit hru?");
+    if (confirmExit) {
+      window.location.href = "https://www.google.com"; 
+    }
+  });
+
+  //restart do zasoby
+  // document.getElementById("reset-btn").addEventListener("click", () => {
+  //   game.resetGame();
+  // });
+
   // Výběr hrdiny
   document.querySelectorAll(".hero").forEach((button) => {
     button.addEventListener("click", () => {

@@ -1,10 +1,10 @@
 import { heroImageMap } from "./heroes.js";
 
 export class Hero {
-  constructor(name, health, attack, defense, weapon, armor) {
+  constructor(name, health,maxHealth, attack, defense, weapon, armor) {
     this.name = name;
     this.health = health;
-    this.maxHealth = health;
+    this.maxHealth = maxHealth;
     this.baseAttack = attack;
     this.baseDefense = defense;
 

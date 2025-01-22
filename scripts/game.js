@@ -1,10 +1,76 @@
+import { Hero } from "./hero.js";
 export class Game {
   constructor(heroes, enemies) {
     this.heroes = heroes;
     this.enemies = enemies;
     this.hero = null;
     this.enemy = null;
+    this.currentSection = "start";
   }
+
+  // Funkce pro uložení hry
+  saveGame() {
+    const gameData = {
+      hero: {
+        name: this.hero.name,
+        health: this.hero.health,
+        maxHealth: this.hero.maxHealth,
+        baseAttack: this.hero.baseAttack,
+        baseDefense: this.hero.baseDefense,
+        inventory: {
+          weapon: this.hero.inventory.weapon
+            ? { ...this.hero.inventory.weapon }
+            : null,
+          armor: this.hero.inventory.armor
+            ? { ...this.hero.inventory.armor }
+            : null,
+        },
+      },
+      currentSection: this.currentSection,
+    };
+
+    localStorage.setItem("savedGame", JSON.stringify(gameData));
+    alert("Hra byla úspěšně uložena!");
+  }
+
+  // Funkce pro načtení hry
+  loadGame() {
+    const savedData = localStorage.getItem("savedGame");
+    if (savedData) {
+      console.log("Načítám uloženou hru...");
+
+      const loadedData = JSON.parse(savedData);
+      this.hero = new Hero(
+        loadedData.hero.name,
+        loadedData.hero.health,
+        loadedData.hero.maxHealth,
+        loadedData.hero.baseAttack,
+        loadedData.hero.baseDefense,
+        loadedData.hero.inventory.weapon
+          ? { ...loadedData.hero.inventory.weapon }
+          : null,
+        loadedData.hero.inventory.armor
+          ? { ...loadedData.hero.inventory.armor }
+          : null
+      );
+      this.currentSection = loadedData.currentSection || "start";
+
+      alert(`Hra byla načtena!`);
+      this.showSection(this.currentSection);
+
+      // Opětovná inicializace tlačítka "Hrdina"
+      initializeInventoryModal(this);
+    } else {
+      alert("Nebyla nalezena žádná uložená hra.");
+    }
+  }
+
+  // Funkce pro resetování hry
+  // resetGame() {
+  //   localStorage.removeItem("savedGame");
+  //   alert("Hra byla resetována.");
+  //   location.reload();
+  // }
 
   selectHero(heroName) {
     this.hero = this.heroes[heroName];
@@ -161,6 +227,7 @@ export class Game {
     const targetSection = document.querySelector(`.${sectionClass}`);
     if (targetSection) {
       // Zobrazí cílovou sekci
+      this.currentSection = sectionClass;
       targetSection.style.display = "block";
       console.log(`Sekce "${sectionClass}" zobrazena.`);
 

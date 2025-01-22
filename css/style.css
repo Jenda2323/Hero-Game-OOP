@@ -15,11 +15,33 @@ body {
   font-size: 1.8rem;
   background-color: rgba(241, 211, 161, 0.8);
 }
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.dropdown {
+  flex: 0 0 auto;  
+}
+
+#info-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: transform 1.5s ease-in-out; 
+}
+#info-btn:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
 .story {
   text-align: left;
 }
 .banner-container {
-  margin-bottom: 2rem;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,11 +53,12 @@ body {
   border-radius: 2rem;
 }
 .section-image {
-  width: 100%; 
-  max-width: 1500px; 
-  height: auto; 
-  border-radius: 10px; 
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); 
+  width: 100%;
+  max-width: 1500px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
 }
 .hero-icon {
   width: 50px;
@@ -51,6 +74,10 @@ body {
   border: 3px solid #000;
   border-radius: 10px;
   background-color: #ddd9d4;
+  
+}
+.story{
+  margin-left: 1rem;
 }
 
 .damageToEnemy {
@@ -76,6 +103,7 @@ button {
   display: block;
   margin: 1rem auto;
   text-align: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 button:hover {
   background-color: lightgreen;
