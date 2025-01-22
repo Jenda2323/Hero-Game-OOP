@@ -216,6 +216,14 @@ export class Game {
       this.handleBattleRound(onVictory, onDefeat);
     };
   }
+  scrollToTop() {
+    if ("scrollBehavior" in document.documentElement.style) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  }
 
   showSection(sectionClass) {
     // Skryje všechny sekce
@@ -229,6 +237,7 @@ export class Game {
       // Zobrazí cílovou sekci
       this.currentSection = sectionClass;
       targetSection.style.display = "block";
+      this.scrollToTop();
       console.log(`Sekce "${sectionClass}" zobrazena.`);
 
       // Zajistí, že všechny .story v této sekci jsou viditelné
